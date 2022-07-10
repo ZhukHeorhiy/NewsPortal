@@ -20,12 +20,19 @@
 
             if (string.IsNullOrEmpty(url)) throw new ApplicationException("Url can't be empty.");
             if (!url.Contains("https://")) throw new ApplicationException("Wrong url format.");
-            if (publishedAt.Year < 2000) throw new ApplicationException("Content is outdated.");
+            if (publishedAt.Year < 2000 || publishedAt > DateTime.Now.AddSeconds(10)) throw new ApplicationException("Content is outdated.");
+            //+test for unreal future
 
             PublishedAt = publishedAt;
             Url = url;
+
         }
 
         public bool IsImportant() => Title.ToLower().Contains("war") && Title.ToLower().Contains("czech");
+        public bool IsToday() => PublishedAt.Day == DateTime.Now.Day && PublishedAt.Month == DateTime.Now.Month && PublishedAt.Year == DateTime.Now.Year;
+        public bool IsThisWeek() => PublishedAt > DateTime.Now.AddDays(-7);
+        public bool IsThisMonth() => PublishedAt > DateTime.Now.AddMonths(-1);
+
+        
     }
 }
