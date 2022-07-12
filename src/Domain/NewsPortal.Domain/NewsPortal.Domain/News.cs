@@ -32,7 +32,5 @@
         public bool IsToday() => PublishedAt.Day == DateTime.Now.Day && PublishedAt.Month == DateTime.Now.Month && PublishedAt.Year == DateTime.Now.Year;
         public bool IsThisWeek() => PublishedAt > DateTime.Now.AddDays(-7);
         public bool IsThisMonth() => PublishedAt > DateTime.Now.AddMonths(-1);
-
-        
     }
 }
