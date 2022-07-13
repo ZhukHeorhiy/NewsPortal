@@ -32,5 +32,31 @@
         public bool IsToday() => PublishedAt.Day == DateTime.Now.Day && PublishedAt.Month == DateTime.Now.Month && PublishedAt.Year == DateTime.Now.Year;
         public bool IsThisWeek() => PublishedAt > DateTime.Now.AddDays(-7);
         public bool IsThisMonth() => PublishedAt > DateTime.Now.AddMonths(-1);
+
+        public List<Countrie> WhatCountry()
+        {
+            List <Countrie> results = new List<Countrie>();
+ 
+            if (Content.ToLower().Contains("ukraine")){
+                results.Add(Countrie.UKR);
+            }
+            if (Content.ToLower().Contains("usa"))
+            {
+                results.Add(Countrie.USA);
+            }
+            if (Content.ToLower().Contains("germany"))
+            {
+                results.Add(Countrie.GER);
+            }
+            if (Content.ToLower().Contains("czech"))
+            {
+                results.Add(Countrie.CZH);
+            }
+            if (Content.ToLower().Contains("united kingdom"))
+            {
+                results.Add(Countrie.UK);
+            }
+            return results;
+        }
     }
 }

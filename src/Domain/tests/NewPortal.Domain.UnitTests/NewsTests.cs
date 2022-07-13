@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NewsPortal.Domain;
 using System;
+using System.Collections.Generic;
 
 namespace NewPortal.Domain.UnitTests
 {
@@ -23,7 +24,7 @@ namespace NewPortal.Domain.UnitTests
             
         }
         [TestMethod]
-        public void NewsToday()
+        public void NewsIsToday()
         {
             const string title = "Soldiers from Ukraine were trained in Czech for war";
             //News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-4), "");
@@ -34,7 +35,7 @@ namespace NewPortal.Domain.UnitTests
             Assert.IsTrue(isToday);
         }
         [TestMethod]
-        public void NewsThisWeek()
+        public void NewsIsThisWeek()
         {
             const string title = "Soldiers from Ukraine were trained in Czech for war";
             News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-6), "");
@@ -44,7 +45,7 @@ namespace NewPortal.Domain.UnitTests
             Assert.IsTrue(isThisWeek);
         }
         [TestMethod]
-        public void NewsThisMonth()
+        public void NewsIsThisMonth()
         {
             const string title = "Soldiers from Ukraine were trained in Czech for war";
             News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-28), "");
@@ -54,6 +55,20 @@ namespace NewPortal.Domain.UnitTests
             Assert.IsTrue(isThisMonth);
         }
         //question about repeating in test methods
+        [TestMethod]
+        public void NewsIsRightCountry()
+        {
+            const string title = "Soldiers from Ukraine were trained in Czech for war Germany";
+            News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-28), "Soldiers from Ukraine were trained in Czech for war Germany and USA");
+
+            List<Countrie> isWhatCountry = news.WhatCountry();
+
+            Assert.IsTrue(isWhatCountry.Contains(Countrie.UKR));
+            Assert.IsTrue(isWhatCountry.Contains(Countrie.GER));
+            Assert.IsTrue(isWhatCountry.Contains(Countrie.CZH));
+            Assert.IsTrue(isWhatCountry.Contains(Countrie.USA));
+            Assert.IsTrue(isWhatCountry.Count == 4);
+        }
 
     }
 }
