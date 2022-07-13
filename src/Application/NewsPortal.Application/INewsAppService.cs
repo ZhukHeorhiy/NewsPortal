@@ -2,6 +2,6 @@
 {
     internal interface INewsAppService
     {
-        IReadOnlyCollection<NewsModel> GetAllNews();
+        Task<IReadOnlyCollection<NewsModel>> GetAllNews(NewsFilter newsFilter);
     }
 }

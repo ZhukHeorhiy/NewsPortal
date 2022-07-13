@@ -33,28 +33,28 @@
         public bool IsThisWeek() => PublishedAt > DateTime.Now.AddDays(-7);
         public bool IsThisMonth() => PublishedAt > DateTime.Now.AddMonths(-1);
 
-        public List<Countrie> WhatCountry()
+        public List<Country> WhatCountry()
         {
-            List <Countrie> results = new List<Countrie>();
+            List <Country> results = new List<Country>();
  
             if (Content.ToLower().Contains("ukraine")){
-                results.Add(Countrie.UKR);
+                results.Add(Country.UKR);
             }
             if (Content.ToLower().Contains("usa"))
             {
-                results.Add(Countrie.USA);
+                results.Add(Country.USA);
             }
             if (Content.ToLower().Contains("germany"))
             {
-                results.Add(Countrie.GER);
+                results.Add(Country.GER);
             }
             if (Content.ToLower().Contains("czech"))
             {
-                results.Add(Countrie.CZH);
+                results.Add(Country.CZH);
             }
             if (Content.ToLower().Contains("united kingdom"))
             {
-                results.Add(Countrie.UK);
+                results.Add(Country.UK);
             }
             return results;
         }

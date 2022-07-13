@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NewsPortal.Domain
 {
-    public enum Countrie
+    public enum Country
     {
         UKR,
         GER,

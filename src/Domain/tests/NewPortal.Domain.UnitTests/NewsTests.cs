@@ -61,12 +61,12 @@ namespace NewPortal.Domain.UnitTests
             const string title = "Soldiers from Ukraine were trained in Czech for war Germany";
             News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-28), "Soldiers from Ukraine were trained in Czech for war Germany and USA");
 
-            List<Countrie> isWhatCountry = news.WhatCountry();
+            List<Country> isWhatCountry = news.WhatCountry();
 
-            Assert.IsTrue(isWhatCountry.Contains(Countrie.UKR));
-            Assert.IsTrue(isWhatCountry.Contains(Countrie.GER));
-            Assert.IsTrue(isWhatCountry.Contains(Countrie.CZH));
-            Assert.IsTrue(isWhatCountry.Contains(Countrie.USA));
+            Assert.IsTrue(isWhatCountry.Contains(Country.UKR));
+            Assert.IsTrue(isWhatCountry.Contains(Country.GER));
+            Assert.IsTrue(isWhatCountry.Contains(Country.CZH));
+            Assert.IsTrue(isWhatCountry.Contains(Country.USA));
             Assert.IsTrue(isWhatCountry.Count == 4);
         }
 

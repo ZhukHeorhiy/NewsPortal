@@ -10,9 +10,12 @@ namespace NewsPortal.Application
             _newsRepository = newsRepository ?? throw new ArgumentNullException(nameof(newsRepository));
         }
 
-        public IReadOnlyCollection<NewsModel> GetAllNews()
+        public async Task<IReadOnlyCollection<NewsModel>> GetAllNews(NewsFilter newsFilter)
         {
-            throw new NotImplementedException();
+            IReadOnlyCollection<News> news = await _newsRepository.GetAll();
+            IReadOnlyCollection<News> filteredNews = news.Where(n => n.WhatCountry().Contains(newsFilter.Country)).ToList().AsReadOnly();
+
+            return filteredNews.ToNewsModel();
         }
     }
 }
