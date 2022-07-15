@@ -1,12 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NewsPortal.Application;
 
 namespace NewsPortal.Api.Controllers
 {
-    public class NewsController : Controller
+    [ApiController]
+    [Route("api/news")]
+    public class NewsController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly INewsAppService _newsAppService;
+
+        public NewsController(INewsAppService newsAppService)
         {
-            return View();
+            _newsAppService = newsAppService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] NewsFilter newsFilter)
+        {
+            ICollection<NewsModel> news = await _newsAppService.GetAllNews(newsFilter);
+
+            return Ok(news);
         }
     }
 }

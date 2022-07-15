@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\NewsPortal.Application\NewsPortal.Application.csproj" />
     <ProjectReference Include="..\..\Domain\NewsPortal.Domain\NewsPortal.Domain\NewsPortal.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\NewsPortal.Infrastructure.Data\NewsPortal.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>

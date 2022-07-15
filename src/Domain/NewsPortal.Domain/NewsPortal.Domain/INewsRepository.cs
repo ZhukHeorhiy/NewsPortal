@@ -2,6 +2,6 @@
 {
     public interface INewsRepository<T> where T : News
     {
-        Task<IReadOnlyCollection<T>> GetAll();
+        Task<ICollection<T>> GetAll();
     }
 }

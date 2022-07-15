@@ -1,4 +1,11 @@
+using NewsPortal.Application;
+using NewsPortal.Domain;
+using NewsPortal.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<INewsAppService, NewsAppService>();
+builder.Services.AddTransient<INewsRepository<News>, NewsRepository>();
 
 // Add services to the container.
 

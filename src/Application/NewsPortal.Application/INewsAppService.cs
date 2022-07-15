@@ -1,7 +1,7 @@
 ﻿namespace NewsPortal.Application
 {
-    internal interface INewsAppService
+    public interface INewsAppService
     {
-        Task<IReadOnlyCollection<NewsModel>> GetAllNews(NewsFilter newsFilter);
+        Task<ICollection<NewsModel>> GetAllNews(NewsFilter newsFilter);
     }
 }

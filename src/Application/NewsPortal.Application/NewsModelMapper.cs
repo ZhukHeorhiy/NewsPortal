@@ -4,7 +4,7 @@ namespace NewsPortal.Application
 {
     internal static class NewsModelMapper
     {
-        public static IReadOnlyCollection<NewsModel> ToNewsModel(this IEnumerable<News> newsList)
+        public static ICollection<NewsModel> ToNewsModel(this IEnumerable<News> newsList)
         {
             return newsList.Select(news => new NewsModel()
             {
@@ -16,7 +16,7 @@ namespace NewsPortal.Application
                 PublishedAt = news.PublishedAt,
                 Title = news.Title,
                 Url = news.Url,
-            }).ToList().AsReadOnly();
+            }).ToList();
         }
     }
 }

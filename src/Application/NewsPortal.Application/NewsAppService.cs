@@ -10,11 +10,9 @@ namespace NewsPortal.Application
             _newsRepository = newsRepository ?? throw new ArgumentNullException(nameof(newsRepository));
         }
 
-        public async Task<IReadOnlyCollection<NewsModel>> GetAllNews(NewsFilter newsFilter)
+        public async Task<ICollection<NewsModel>> GetAllNews(NewsFilter newsFilter)
         {
-
-            IEnumerable<News> news = (await _newsRepository.GetAll()).ToList();
-         
+            IEnumerable<News> news = await _newsRepository.GetAll();
 
             if (newsFilter.Important.HasValue)
             {
@@ -24,7 +22,7 @@ namespace NewsPortal.Application
             {
                 news = news.Where(n => n.WhatCountry().Contains(newsFilter.Country));
             }
-            
+
             return news.ToNewsModel();
         }
     }
