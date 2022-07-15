@@ -6,7 +6,7 @@ namespace NewsPortal.Infrastructure.Data
     {
         public async Task<ICollection<News>> GetAll()
         {
-            return new List<News>() { new News("Bbc", "Usa", "Usa Desc", "http://site.com", "", DateTime.Now, "Usa helped Ukraine") };
+            return new List<News>() { new News("Bbc", "Usa", "Usa Desc", "https://site.com", "", DateTime.Now, "Usa helped Ukraine") };
         }
     }
 }
