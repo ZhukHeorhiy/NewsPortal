@@ -8,12 +8,16 @@ namespace NewPortal.Domain.UnitTests
     [TestClass]
     public class NewsTests
     {
+        public News NewsTesterHelper(DateTime time, string content)
+        {
+            const string title = "Soldiers from Ukraine were trained in Czech for war";
+            return new("", title, "", "https://url.com", "", time, content);
+        }
         [TestMethod]
         public void NewsAboutWarInCzechNewsIsImportant()
         {
             // Data preparation
-            const string title = "Soldiers from Ukraine were trained in Czech for war";
-            News news = new("", title, "", "https://url.com", "", DateTime.Now, "");
+            News news = NewsTesterHelper(DateTime.Now, "");
 
             // Action
             bool isImportant = news.IsImportant();
@@ -26,9 +30,7 @@ namespace NewPortal.Domain.UnitTests
         [TestMethod]
         public void NewsIsToday()
         {
-            const string title = "Soldiers from Ukraine were trained in Czech for war";
-            //News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-4), "");
-            News news = new("", title, "", "https://url.com", "", DateTime.Now, "");
+            News news = NewsTesterHelper(DateTime.Now, "");
 
             bool isToday = news.IsToday();
 
@@ -37,8 +39,7 @@ namespace NewPortal.Domain.UnitTests
         [TestMethod]
         public void NewsIsThisWeek()
         {
-            const string title = "Soldiers from Ukraine were trained in Czech for war";
-            News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-6), "");
+            News news = NewsTesterHelper(DateTime.Now.AddDays(-6), "");
 
             bool isThisWeek = news.IsThisWeek();
 
@@ -47,8 +48,7 @@ namespace NewPortal.Domain.UnitTests
         [TestMethod]
         public void NewsIsThisMonth()
         {
-            const string title = "Soldiers from Ukraine were trained in Czech for war";
-            News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-28), "");
+            News news = NewsTesterHelper(DateTime.Now.AddDays(-28), "");
 
             bool isThisMonth = news.IsThisMonth();
 
@@ -58,9 +58,8 @@ namespace NewPortal.Domain.UnitTests
         [TestMethod]
         public void NewsIsRightCountry()
         {
-            const string title = "Soldiers from Ukraine were trained in Czech for war Germany";
-            News news = new("", title, "", "https://url.com", "", DateTime.Now.AddDays(-28), "Soldiers from Ukraine were trained in Czech for war Germany and USA");
-
+            News news = NewsTesterHelper(DateTime.Now.AddDays(-28), "Soldiers from Ukraine were trained in Czech for war Germany and USA");
+            
             List<Country> isWhatCountry = news.WhatCountry();
 
             Assert.IsTrue(isWhatCountry.Contains(Country.UKR));

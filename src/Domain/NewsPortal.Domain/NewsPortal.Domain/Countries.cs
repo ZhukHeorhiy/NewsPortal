@@ -8,6 +8,7 @@ namespace NewsPortal.Domain
 {
     public enum Country
     {
+        All,
         UKR,
         GER,
         HU,

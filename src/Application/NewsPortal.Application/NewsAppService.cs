@@ -12,10 +12,20 @@ namespace NewsPortal.Application
 
         public async Task<IReadOnlyCollection<NewsModel>> GetAllNews(NewsFilter newsFilter)
         {
-            IReadOnlyCollection<News> news = await _newsRepository.GetAll();
-            IReadOnlyCollection<News> filteredNews = news.Where(n => n.WhatCountry().Contains(newsFilter.Country)).ToList().AsReadOnly();
 
-            return filteredNews.ToNewsModel();
+            IEnumerable<News> news = (await _newsRepository.GetAll()).ToList();
+         
+
+            if (newsFilter.Important.HasValue)
+            {
+                news = news.Where(n => n.IsImportant() == newsFilter.Important);
+            }
+            if (newsFilter.Country != Country.All)
+            {
+                news = news.Where(n => n.WhatCountry().Contains(newsFilter.Country));
+            }
+            
+            return news.ToNewsModel();
         }
     }
 }
