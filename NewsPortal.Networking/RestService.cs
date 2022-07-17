@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 
 namespace NewsPortal.Networking
 {
-    public class RestService:IRestService
+    public class RestService : IRestService
     {
         private HttpClient _httpClient;
 
@@ -13,6 +13,7 @@ namespace NewsPortal.Networking
             _httpClient = new HttpClient { BaseAddress = new Uri(host) };
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("user-agent", "News-API-csharp/0.1");
         }
 
         public async Task<T> GetItem<T>(string path)
