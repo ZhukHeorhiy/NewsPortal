@@ -28,7 +28,22 @@
 
         }
 
-        public bool IsImportant() => Title.ToLower().Contains("war") && Title.ToLower().Contains("czech");
+
+        public bool IsImportant()
+        {
+            if (Title.ToLower().Contains("war") && Title.ToLower().Contains("czech"))
+            {
+                return true;
+            }else if (Content.ToLower().Contains("war") && Content.ToLower().Contains("czech"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //adding content condition
         public bool IsToday() => PublishedAt.Day == DateTime.Now.Day && PublishedAt.Month == DateTime.Now.Month && PublishedAt.Year == DateTime.Now.Year;
         public bool IsThisWeek() => PublishedAt > DateTime.Now.AddDays(-7);
         public bool IsThisMonth() => PublishedAt > DateTime.Now.AddMonths(-1);
@@ -37,26 +52,27 @@
         {
             List <Country> results = new List<Country>();
  
-            if (Content.ToLower().Contains("ukraine")){
+            if (Content.ToLower().Contains("ukraine") || Title.ToLower().Contains("ukraine")){
                 results.Add(Country.UKR);
             }
-            if (Content.ToLower().Contains("usa"))
+            if (Content.ToLower().Contains("usa") || Title.ToLower().Contains("usa"))
             {
                 results.Add(Country.USA);
             }
-            if (Content.ToLower().Contains("germany"))
+            if (Content.ToLower().Contains("germany") || Title.ToLower().Contains("germany"))
             {
                 results.Add(Country.GER);
             }
-            if (Content.ToLower().Contains("czech"))
+            if (Content.ToLower().Contains("czech") || Title.ToLower().Contains("czech"))
             {
                 results.Add(Country.CZH);
             }
-            if (Content.ToLower().Contains("united kingdom"))
+            if (Content.ToLower().Contains("united kingdom") || Title.ToLower().Contains("united kingdom"))
             {
                 results.Add(Country.UK);
             }
             return results;
+            //adding title condition
         }
     }
 }
