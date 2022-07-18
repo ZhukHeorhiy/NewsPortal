@@ -1,19 +1,22 @@
-﻿using NewsPortal.Domain;
+﻿using Microsoft.Extensions.Options;
+using NewsPortal.Domain;
 using NewsPortal.Networking;
 namespace NewsPortal.Infrastructure.Data
     
 {
     public class NewsRepository : INewsRepository<News>
     {
-        private IRestService _restService;
-        public NewsRepository(IRestService restService)
+        private readonly IRestService _restService;
+        private readonly string _apiKey;
+        public NewsRepository(IRestService restService, IOptions<NewsApiSettings> options)
         {
             _restService = restService;
-            _restService.Init("https://newsapi.org/v2/");
+            _restService.Init(options.Value.ApiHost);
+            _apiKey = options.Value.ApiKey;
         }
         public async Task<ICollection<News>> GetAll()
         {
-            IEnumerable<NewsApiModel> apiNews = await _restService.GetItems<NewsApiModel>("everything?q=Ukraine&from=2022-07-08&sortBy=publishedAt&apiKey=e62091573e424b8aa6e13e8d55aad13b");
+            NewsApiModel apiNews = await _restService.GetItem<NewsApiModel>("everything?q=Ukraine&from=2022-07-08&sortBy=publishedAt&apiKey=" + _apiKey);
             return apiNews.ToNewsList().ToList();
 
         }

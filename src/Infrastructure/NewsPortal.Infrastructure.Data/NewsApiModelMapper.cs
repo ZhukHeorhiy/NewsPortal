@@ -9,16 +9,17 @@ namespace NewsPortal.Infrastructure.Data
 {
     internal static class NewsApiModelMapper
     {
-        public static IEnumerable<News> ToNewsList(this IEnumerable<NewsApiModel> newsApiList)
+
+        public static IEnumerable<News> ToNewsList(this NewsApiModel newsApiList)
         {
-            return newsApiList.Select(news => new News(
-                news.Articles.Author,
-                news.Articles.Title,
-                news.Articles.Description,
-                news.Articles.Url,
-                news.Articles.UrlToImage,
-                news.Articles.PublishedAt,
-                news.Articles.Content
+            return newsApiList.Articles.Select(news => new News(
+                news.Author,
+                news.Title,
+                news.Description,
+                news.Url,
+                news.UrlToImage,
+                news.PublishedAt,
+                news.Content
                 )
             );
         }

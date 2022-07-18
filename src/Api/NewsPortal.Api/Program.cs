@@ -4,10 +4,12 @@ using NewsPortal.Infrastructure.Data;
 using NewsPortal.Networking;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddTransient<INewsAppService, NewsAppService>();
 builder.Services.AddTransient<INewsRepository<News>, NewsRepository>();
 builder.Services.AddTransient<IRestService, RestService>();
+builder.Services.Configure<NewsApiSettings>(configuration.GetSection("NewsApiSettings"));
 
 
 // Add services to the container.

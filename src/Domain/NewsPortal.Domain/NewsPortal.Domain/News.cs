@@ -12,14 +12,14 @@
 
         public News(string author, string title, string description, string url, string imageUrl, DateTime publishedAt, string content)
         {
-            Author = author ?? throw new ArgumentNullException(nameof(author));
+            Author = author;
             Title = title ?? throw new ArgumentNullException(nameof(title));
-            Description = description ?? throw new ArgumentNullException(nameof(description));
-            ImageUrl = imageUrl ?? throw new ArgumentNullException(nameof(imageUrl));
+            Description = description;
+            ImageUrl = imageUrl;
             Content = content ?? throw new ArgumentNullException(nameof(content));
 
             if (string.IsNullOrEmpty(url)) throw new ApplicationException("Url can't be empty.");
-            if (!url.Contains("https://")) throw new ApplicationException("Wrong url format.");
+            if (!url.Contains("https://") && !url.Contains("http://")) throw new ApplicationException("Wrong url format.");
             if (publishedAt.Year < 2000 || publishedAt > DateTime.Now.AddSeconds(10)) throw new ApplicationException("Content is outdated.");
             //+test for unreal future
 

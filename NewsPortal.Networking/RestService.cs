@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 
 namespace NewsPortal.Networking
 {
-    public class RestService : IRestService
+    public class RestService:IRestService
     {
         private HttpClient _httpClient;
 

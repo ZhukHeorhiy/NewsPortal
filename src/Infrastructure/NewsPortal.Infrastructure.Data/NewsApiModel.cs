@@ -14,7 +14,7 @@ namespace NewsPortal.Infrastructure.Data
         [JsonProperty("totalResults")]
         public int TotalResults { get; set; }
         [JsonProperty("articles")]
-        public Articles Articles { get; set; }
+        public List<Articles> Articles { get; set; }
     }
     public class Articles
     {
@@ -22,7 +22,7 @@ namespace NewsPortal.Infrastructure.Data
         public Source Source { get; set; }
         [JsonProperty("author")]
         public string Author { get; set; }
-        [JsonProperty("titel")]
+        [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("description")]
         public string Description { get; set; }
