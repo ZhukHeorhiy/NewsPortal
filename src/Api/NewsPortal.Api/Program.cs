@@ -12,6 +12,7 @@ builder.Services.AddTransient<IRestService, RestService>();
 builder.Services.Configure<NewsApiSettings>(configuration.GetSection("NewsApiSettings"));
 
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();

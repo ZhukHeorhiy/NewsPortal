@@ -18,6 +18,9 @@ namespace NewsPortal.Infrastructure.Data
         {
             NewsApiModel apiNews = await _restService.GetItem<NewsApiModel>("everything?q=Ukraine&from=2022-07-08&sortBy=publishedAt&apiKey=" + _apiKey);
             return apiNews.ToNewsList().ToList();
+        }
+        public async Task Add(News news)
+        {
 
         }
     }

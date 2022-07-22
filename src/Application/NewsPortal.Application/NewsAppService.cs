@@ -25,5 +25,9 @@ namespace NewsPortal.Application
 
             return news.ToNewsModel();
         }
+        public async Task AddNews(NewsModel news)
+        {
+
+        }
     }
 }

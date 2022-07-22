@@ -9,6 +9,7 @@
         public string ImageUrl { get; }
         public DateTime PublishedAt { get; }
         public string Content { get; }
+        public List<Comment> Comments { get; }
 
         public News(string author, string title, string description, string url, string imageUrl, DateTime publishedAt, string content)
         {
@@ -25,9 +26,15 @@
 
             PublishedAt = publishedAt;
             Url = url;
-
+            Comments = new List<Comment>();
+            //tut
         }
-
+        public void AddComment(Comment comment)
+        {
+            if (Comments.Any(n => n.CommentContent == comment.CommentContent)) return;
+            Comments.Add(comment);
+        }
+       
 
         public bool IsImportant()
         {
