@@ -18,5 +18,26 @@ namespace NewsPortal.Application
                 Url = news.Url,
             }).ToList();
         }
+        public static News ToNews(this NewsModel newsModel)
+        {
+            News news = new News(
+                author: newsModel.Author,
+                title: newsModel.Title,
+                newsModel.Description,
+                newsModel.Url,
+                newsModel.ImageUrl,
+                newsModel.PublishedAt,
+                newsModel.Content
+                );
+            foreach(CommentsModel commentsModel in newsModel.Comments)
+            {
+                news.AddComment(new Comment(commentsModel.Content, commentsModel.Likes, commentsModel.CommentId));
+            }
+            
+            return news;
+
+        }
+
+
     }
 }

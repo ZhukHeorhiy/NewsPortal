@@ -15,29 +15,21 @@ namespace NewPortal.Domain.UnitTests
         public void CommentNotRepeat()
         {
             News news = new News("", "title", "", "https://url.com", "", DateTime.Now, "Content");
-            Comment comment = new Comment(commentContent: "Hello World!");
+            Comment comment = new Comment(commentContent: "Hello World!", 43, 4567);
+            //-1 like checks 
             news.AddComment(comment);
-            int count = 0;
-            foreach(Comment i in news.Comments)
-            {
-                if(i.CommentContent == "Hello World!")
-                {
-                    count++;
-                }
-            }
-            Assert.IsTrue(count < 2);
+            news.AddComment(comment);
+            Assert.IsTrue(news.Comments.Count == 1);
+
 
         }
         [TestMethod]
-        public void CommentRightSize()
+        [ExpectedException(typeof(ApplicationException), "bad comment size")]
+        public void CommentNotRightSize()
         {
             News news = new News("", "title", "", "https://url.com", "", DateTime.Now, "Content");
-            Comment comment = new Comment("Hello World!");
-            news.AddComment(comment);
-            Console.WriteLine(comment.CommentContent.Length);
-            Assert.IsFalse(comment.CommentContent.Length < 1 || comment.CommentContent.Length > 100);
-         
-
+            Comment comment = new Comment("",0,3453);         
+            
         }
     }
 }

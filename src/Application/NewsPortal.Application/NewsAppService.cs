@@ -25,8 +25,15 @@ namespace NewsPortal.Application
 
             return news.ToNewsModel();
         }
-        public async Task AddNews(NewsModel news)
+        public async Task AddNewsAplication(NewsModel news)
         {
+           await _newsRepository.AddNewsRepository(news.ToNews());
+        }
+        public async Task DeleteCommentApl(int commentId)
+        {
+            News news = await _newsRepository.GetOneNews(commentId);
+
+            news.DeleteComment(commentId);
 
         }
     }

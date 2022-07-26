@@ -10,5 +10,7 @@
         public DateTime PublishedAt { get; set; }
         public string Content { get; set; }
         public bool IsImportant { get; set; }
+        public List<CommentsModel> Comments { get; set; }
+
     }
 }

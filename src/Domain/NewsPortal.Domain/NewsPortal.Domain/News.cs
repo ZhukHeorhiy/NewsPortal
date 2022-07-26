@@ -34,6 +34,21 @@
             if (Comments.Any(n => n.CommentContent == comment.CommentContent)) return;
             Comments.Add(comment);
         }
+        public void DeleteComment(int commentId)
+        {
+            
+            Comment result = Comments.SingleOrDefault(n => n.CommentId == commentId);
+            if(result.CommentLikes == 0)
+            {
+                Comments.Remove(result);
+
+            }
+            else
+            {
+                throw new ApplicationException("canot delete comment to many likes");
+            }
+            
+        }
        
 
         public bool IsImportant()
