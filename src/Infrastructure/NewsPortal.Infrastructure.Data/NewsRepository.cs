@@ -50,23 +50,6 @@ namespace NewsPortal.Infrastructure.Data
 
 
         }
-        public async Task DeleteCommentsNewsRep(Guid commentId)
-        {
-            string query = $@"DELETE FROM Comments 
-            WHERE CommentId =={commentId}";
-            await using SqlConnection connection = new("Data Source=.;Initial Catalog=NewsPortal;Integrated Security=True;");
-            SqlCommand command = new SqlCommand(query, connection);
-            
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException ex)
-            {
-                throw new ApplicationException("problems with sql conection:" + $"{ex}");
-            }
-        }
         public async Task<News> GetOneNews(Guid NewsId)
         {
             string query = @"SELECT * FROM News n
@@ -145,7 +128,6 @@ namespace NewsPortal.Infrastructure.Data
             command.Parameters.AddWithValue("@CommentContent", comment.CommentContent);
             command.Parameters.AddWithValue("@CommentLikes", comment.CommentLikes);
             command.Parameters.AddWithValue("@NewsID", newsId);
-
             try
             {
                 connection.Open();
@@ -154,8 +136,25 @@ namespace NewsPortal.Infrastructure.Data
             {
                 throw new ApplicationException("cannot add comment to Rep");
             }
-            
+        }
+        public async Task DeleteCommentsRep(Guid commentId, Guid newsId)
+        {
+            string query = @"DELETE FROM Comments WHERE 
+            NewsID = @newsId AND CommentId = @commentId";
+            await using SqlConnection connection = new("Data Source =.; Initial Catalog = NewsPortal; Integrated Security = True;");
+            SqlCommand command = new SqlCommand (query, connection);
+            command.Parameters.AddWithValue("@newsId", newsId);
+            command.Parameters.AddWithValue("@commentId", commentId);
 
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("cannot delete comment in Rep");
+            }
 
         }
     }

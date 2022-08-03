@@ -35,14 +35,12 @@
         {
             if (Comments.Any(n => n.CommentContent == comment.CommentContent)) return;
             Comments.Add(comment);
-
-
         }
         public void DeleteComment(Guid commentId)
         {
             
             Comment result = Comments.SingleOrDefault(n => n.CommentId == commentId);
-            if(result.CommentLikes == 0)
+            if(result.CommentLikes < 50)
             {
                 Comments.Remove(result);
             }

@@ -47,8 +47,6 @@ namespace NewsPortal.Api.Controllers
             return Ok($"Coomment {commentId} deleted");
         }
 
-        //adding comment
-
 
     }
 }
