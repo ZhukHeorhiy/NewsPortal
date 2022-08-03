@@ -14,8 +14,8 @@ namespace NewPortal.Domain.UnitTests
         [TestMethod]
         public void CommentNotRepeat()
         {
-            News news = new News("", "title", "", "https://url.com", "", DateTime.Now, "Content");
-            Comment comment = new Comment(commentContent: "Hello World!", 43, 4567);
+            News news = new News(Guid.Empty, "", "title", "", "https://url.com", "", DateTime.Now, "Content");
+            Comment comment = new Comment(commentContent: "Hello World!", 43, Guid.Empty);
             //-1 like checks 
             news.AddComment(comment);
             news.AddComment(comment);
@@ -27,8 +27,8 @@ namespace NewPortal.Domain.UnitTests
         [ExpectedException(typeof(ApplicationException), "bad comment size")]
         public void CommentNotRightSize()
         {
-            News news = new News("", "title", "", "https://url.com", "", DateTime.Now, "Content");
-            Comment comment = new Comment("",0,3453);         
+            News news = new News(Guid.Empty, "", "title", "", "https://url.com", "", DateTime.Now, "Content");
+            Comment comment = new Comment("",0, Guid.Empty);         
             
         }
     }

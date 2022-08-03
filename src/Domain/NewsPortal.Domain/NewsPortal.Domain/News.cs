@@ -2,6 +2,7 @@
 {
     public class News
     {
+        public Guid Id { get; }
         public string Author { get; }
         public string Title { get; }
         public string Description { get; }
@@ -11,8 +12,9 @@
         public string Content { get; }
         public List<Comment> Comments { get; }
 
-        public News(string author, string title, string description, string url, string imageUrl, DateTime publishedAt, string content)
+        public News(Guid id, string author, string title, string description, string url, string imageUrl, DateTime publishedAt, string content)
         {
+            Id = id;
             Author = author;
             Title = title ?? throw new ArgumentNullException(nameof(title));
             Description = description;
@@ -33,15 +35,16 @@
         {
             if (Comments.Any(n => n.CommentContent == comment.CommentContent)) return;
             Comments.Add(comment);
+
+
         }
-        public void DeleteComment(int commentId)
+        public void DeleteComment(Guid commentId)
         {
             
             Comment result = Comments.SingleOrDefault(n => n.CommentId == commentId);
             if(result.CommentLikes == 0)
             {
                 Comments.Remove(result);
-
             }
             else
             {

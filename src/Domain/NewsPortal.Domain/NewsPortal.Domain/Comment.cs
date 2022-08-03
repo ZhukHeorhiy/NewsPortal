@@ -10,11 +10,11 @@ namespace NewsPortal.Domain
     {
         public string CommentContent { get; }
         
-        public int CommentId { get; }
+        public Guid CommentId { get; }
 
         public int CommentLikes { get; }
 
-        public Comment(string commentContent, int commentLikes, int commentId)
+        public Comment(string commentContent, int commentLikes, Guid commentId)
         {
             CommentCheck(commentContent, commentLikes);
             CommentContent = commentContent;

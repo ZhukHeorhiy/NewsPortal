@@ -6,5 +6,6 @@ namespace NewsPortal.Application
     {
         public Country Country { get; set; }
         public bool? Important { get; set; }
+
     }
 }

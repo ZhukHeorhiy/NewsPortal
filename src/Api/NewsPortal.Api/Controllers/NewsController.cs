@@ -23,28 +23,31 @@ namespace NewsPortal.Api.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> AddNews(NewsModel newsModel)
         {
             await _newsAppService.AddNewsAplication(newsModel);
+
             return Ok("Done");
-            
-            //adding logic to controler logic
         }
+        [HttpPost]
+        [Route("comment")]
+        public async Task<IActionResult> AddCommentsToNews(CommentsModel comentsModel, Guid newsId)
+        {
+            await _newsAppService.AddCommentApl(comentsModel, newsId);
+
+            return Ok("Done adding comments");
+        }
+
         [HttpDelete]
 
-        public async Task<IActionResult> DeleteComment(int commentId)
+        public async Task<IActionResult> DeleteComment(Guid commentId, Guid newsId)
         {
-            await _newsAppService.DeleteCommentApl(commentId);
+            await _newsAppService.DeleteCommentApl(commentId, newsId);
 
             return Ok($"Coomment {commentId} deleted");
         }
-        //[HttpPost] 
-        //public async Task<IActionResult> AddCommentsToNews(CommentsModel comentsModel)
-        //{
-            
-        //    return Ok("Done adding comments");
-        //}
+
+        //adding comment
 
 
     }

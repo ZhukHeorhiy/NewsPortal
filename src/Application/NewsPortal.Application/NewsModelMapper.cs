@@ -8,6 +8,7 @@ namespace NewsPortal.Application
         {
             return newsList.Select(news => new NewsModel()
             {
+                Id = news.Id,
                 Author = news.Author,
                 Content = news.Content,
                 Description = news.Description,
@@ -21,6 +22,7 @@ namespace NewsPortal.Application
         public static News ToNews(this NewsModel newsModel)
         {
             News news = new News(
+                id: newsModel.Id,
                 author: newsModel.Author,
                 title: newsModel.Title,
                 newsModel.Description,

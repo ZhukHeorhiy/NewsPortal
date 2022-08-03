@@ -13,6 +13,7 @@ namespace NewsPortal.Infrastructure.Data
         public static IEnumerable<News> ToNewsList(this NewsApiModel newsApiList)
         {
             return newsApiList.Articles.Select(news => new News(
+                Guid.Empty,
                 news.Author,
                 news.Title,
                 news.Description,

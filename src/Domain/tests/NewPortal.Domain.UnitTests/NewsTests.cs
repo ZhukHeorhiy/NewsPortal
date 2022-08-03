@@ -11,7 +11,7 @@ namespace NewPortal.Domain.UnitTests
         public News NewsTesterHelper(DateTime time, string content)
         {
             const string title = "Soldiers from Ukraine were trained in Czech for war";
-            return new("", title, "", "https://url.com", "", time, content);
+            return new(Guid.Empty, "", title, "", "https://url.com", "", time, content);
         }
         [TestMethod]
         public void NewsAboutWarInCzechNewsIsImportant()

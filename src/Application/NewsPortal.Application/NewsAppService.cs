@@ -25,14 +25,27 @@ namespace NewsPortal.Application
 
             return news.ToNewsModel();
         }
+        public async Task AddCommentApl(CommentsModel comments, Guid newsId)
+        {
+            
+            News news = await _newsRepository.GetOneNews(newsId);
+            Comment comment = new Comment(comments.Content, comments.Likes, comments.CommentId);
+            news.AddComment(comment);
+            News oldNews = await _newsRepository.GetOneNews(newsId);
+
+            if (oldNews.Comments.Count < news.Comments.Count)
+            {
+                await _newsRepository.AddCommentsRep(comment, news.Id);
+            }
+        }
         public async Task AddNewsAplication(NewsModel news)
         {
            await _newsRepository.AddNewsRepository(news.ToNews());
         }
-        public async Task DeleteCommentApl(int commentId)
+        public async Task DeleteCommentApl(Guid commentId, Guid newsId)
         {
-            News news = await _newsRepository.GetOneNews(commentId);
-
+            News news = await _newsRepository.GetOneNews(newsId);
+            //тут ми визиваємо метод який вертає значення доменого рівня 
             news.DeleteComment(commentId);
 
         }
