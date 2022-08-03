@@ -38,17 +38,9 @@ namespace NewsPortal.Infrastructure.Data
             command.Parameters.AddWithValue("@imageUrl", news.ImageUrl);
             command.Parameters.AddWithValue("@publishedAt", news.PublishedAt);
             command.Parameters.AddWithValue("@content", news.Content);
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException ex)
-            {
-                throw new ApplicationException("problems with sql conection:" + $"{ex}");
-            }
 
-
+            connection.Open();
+            command.ExecuteNonQuery();
         }
         public async Task<News> GetOneNews(Guid NewsId)
         {
@@ -58,29 +50,22 @@ namespace NewsPortal.Infrastructure.Data
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@newsId", NewsId);
             News news = null;
-            try
+            connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            await reader.ReadAsync();
+            news = new News(
+                    await reader.GetFieldValueAsync<Guid>(reader.GetOrdinal("NewsID")),
+                    await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Author")),
+                    await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Title")),
+                    await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Description")),
+                    await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Url")),
+                    await reader.GetFieldValueAsync<string>(reader.GetOrdinal("ImageUrl")),
+                    await reader.GetFieldValueAsync<DateTime>(reader.GetOrdinal("PublishedAt")),
+                    await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Content"))
+                );
+            foreach(Comment comment in await GetComments(NewsId))
             {
-                connection.Open();
-                SqlDataReader reader = await command.ExecuteReaderAsync();
-                await reader.ReadAsync();
-                news = new News(
-                        await reader.GetFieldValueAsync<Guid>(reader.GetOrdinal("NewsID")),
-                        await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Author")),
-                        await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Title")),
-                        await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Description")),
-                        await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Url")),
-                        await reader.GetFieldValueAsync<string>(reader.GetOrdinal("ImageUrl")),
-                        await reader.GetFieldValueAsync<DateTime>(reader.GetOrdinal("PublishedAt")),
-                        await reader.GetFieldValueAsync<string>(reader.GetOrdinal("Content"))
-                 );
-                foreach(Comment comment in await GetComments(NewsId))
-                {
-                    news.AddComment(comment);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Cannot get one news, error: "+$"{ex}");
+                news.AddComment(comment);
             }
             return news;
         }
@@ -92,24 +77,19 @@ namespace NewsPortal.Infrastructure.Data
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@newsId", NewsId);
             List<Comment> comments = new List<Comment>();
-            try
+            connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
             {
-                connection.Open();
-                SqlDataReader reader = await command.ExecuteReaderAsync();
-                while (await reader.ReadAsync())
-                {
                     
-                    comments.Add(
-                        new Comment(await reader.GetFieldValueAsync<string>(reader.GetOrdinal("CommentContent")),
-                        await reader.GetFieldValueAsync<int> (reader.GetOrdinal("CommentLikes")),
-                        await reader.GetFieldValueAsync<Guid>(reader.GetOrdinal("CommentId"))
-                        ));
-                }
-            }catch(Exception ex)
-            {
-                throw new ApplicationException("Cannot get a comment");
+                comments.Add(
+                    new Comment(await reader.GetFieldValueAsync<string>(reader.GetOrdinal("CommentContent")),
+                    await reader.GetFieldValueAsync<int> (reader.GetOrdinal("CommentLikes")),
+                    await reader.GetFieldValueAsync<Guid>(reader.GetOrdinal("CommentId"))
+                    ));
             }
-            return comments;
+
+        return comments;
         }
         public async Task AddCommentsRep(Comment comment, Guid newsId)
         {
@@ -128,33 +108,21 @@ namespace NewsPortal.Infrastructure.Data
             command.Parameters.AddWithValue("@CommentContent", comment.CommentContent);
             command.Parameters.AddWithValue("@CommentLikes", comment.CommentLikes);
             command.Parameters.AddWithValue("@NewsID", newsId);
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }catch(Exception ex)
-            {
-                throw new ApplicationException("cannot add comment to Rep");
-            }
+            connection.Open();
+            command.ExecuteNonQuery();
         }
         public async Task DeleteCommentsRep(Guid commentId, Guid newsId)
         {
             string query = @"DELETE FROM Comments WHERE 
             NewsID = @newsId AND CommentId = @commentId";
-            await using SqlConnection connection = new("Data Source =.; Initial Catalog = NewsPortal; Integrated Security = True;");
+            await using SqlConnection connection = new("Data Source =..; Initial Catalog = NewsPortal; Integrated Security = True;");
             SqlCommand command = new SqlCommand (query, connection);
             command.Parameters.AddWithValue("@newsId", newsId);
             command.Parameters.AddWithValue("@commentId", commentId);
 
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch(Exception ex)
-            {
-                throw new ApplicationException("cannot delete comment in Rep");
-            }
+            connection.Open();
+            command.ExecuteNonQuery();
+
 
         }
     }
