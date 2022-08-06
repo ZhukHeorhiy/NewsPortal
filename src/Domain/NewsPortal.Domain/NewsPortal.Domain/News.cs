@@ -1,8 +1,7 @@
 ﻿namespace NewsPortal.Domain
 {
-    public class News
+    public class News: AgregateRoot
     {
-        public Guid Id { get; }
         public string Author { get; }
         public string Title { get; }
         public string Description { get; }
