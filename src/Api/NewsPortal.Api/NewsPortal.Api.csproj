@@ -11,16 +11,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
     <PackageReference Include="NLog" Version="5.0.1" />
     <PackageReference Include="NLog.Config" Version="4.7.15" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\NewsPortal.Networking\NewsPortal.Networking.csproj" />
     <ProjectReference Include="..\..\Application\NewsPortal.Application\NewsPortal.Application.csproj" />
     <ProjectReference Include="..\..\Domain\NewsPortal.Domain\NewsPortal.Domain\NewsPortal.Domain.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\NewsPortal.Infrastructure.Data\NewsPortal.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\NewsPortal.Infrastrucutre.EntityFrameWork\NewsPortal.Infrastrucutre.EntityFrameWork.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\NewsPortal.Networking\NewsPortal.Networking.csproj" />
   </ItemGroup>
 
 </Project>

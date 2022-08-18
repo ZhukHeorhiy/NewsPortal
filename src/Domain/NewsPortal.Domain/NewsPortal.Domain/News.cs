@@ -9,11 +9,11 @@
         public string ImageUrl { get; }
         public DateTime PublishedAt { get; }
         public string Content { get; }
-        public List<Comment> Comments { get; }
+        public List<Comments> Comments { get; }
 
         public News(Guid id, string author, string title, string description, string url, string imageUrl, DateTime publishedAt, string content)
         {
-            Id = id;
+            NewsId = id;
             Author = author;
             Title = title ?? throw new ArgumentNullException(nameof(title));
             Description = description;
@@ -23,14 +23,18 @@
             if (string.IsNullOrEmpty(url)) throw new ApplicationException("Url can't be empty.");
             if (!url.Contains("https://") && !url.Contains("http://")) throw new ApplicationException("Wrong url format.");
             if (publishedAt.Year < 2000 || publishedAt > DateTime.Now.AddSeconds(10)) throw new ApplicationException("Content is outdated.");
-            //+test for unreal future
+
 
             PublishedAt = publishedAt;
             Url = url;
-            Comments = new List<Comment>();
-            //tut
+            Comments = new List<Comments>();
+ 
         }
-        public void AddComment(Comment comment)
+        protected News()
+        {
+
+        }
+        public void AddComment(Comments comment)
         {
             if (Comments.Any(n => n.CommentContent == comment.CommentContent)) return;
             Comments.Add(comment);
@@ -38,7 +42,7 @@
         public void DeleteComment(Guid commentId)
         {
             
-            Comment result = Comments.SingleOrDefault(n => n.CommentId == commentId);
+            Comments result = Comments.SingleOrDefault(n => n.CommentId == commentId);
             if(result.CommentLikes < 50)
             {
                 Comments.Remove(result);

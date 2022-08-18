@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using NewsPortal.Application;
 using NewsPortal.Domain;
-using NewsPortal.Infrastructure.Data;
+using NewsPortal.Infrastrucutre.EntityFrameWork;
 using NewsPortal.Networking;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,8 @@ ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddTransient<INewsAppService, NewsAppService>();
 builder.Services.AddTransient<INewsRepository<News>, NewsRepository>();
 builder.Services.AddTransient<IRestService, RestService>();
-builder.Services.Configure<NewsApiSettings>(configuration.GetSection("NewsApiSettings"));
+builder.Services.AddDbContext<NewsPortalContext>(options =>
+                     options.UseSqlServer("Data Source=.;Initial Catalog=NewsPortal;Integrated Security=True;"));
 
 
 

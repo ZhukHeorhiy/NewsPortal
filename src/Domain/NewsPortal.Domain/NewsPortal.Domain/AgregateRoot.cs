@@ -8,6 +8,6 @@ namespace NewsPortal.Domain
 {
     public class AgregateRoot
     {
-        public Guid Id { get; protected set; }
+        public Guid NewsId { get; protected set; }
     }
 }

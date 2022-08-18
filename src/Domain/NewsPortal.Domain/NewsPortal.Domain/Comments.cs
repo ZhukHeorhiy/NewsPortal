@@ -6,15 +6,21 @@ using System.Threading.Tasks;
 
 namespace NewsPortal.Domain
 {
-    public class Comment
+    public class Comments
     {
-        public string CommentContent { get; }
+        public string CommentContent { get; private set; }
         
-        public Guid CommentId { get; }
+        public Guid CommentId { get; private set; }
 
-        public int CommentLikes { get; }
+        public int CommentLikes { get; private set; }
+        
+        public News News { get; set; }
+        protected Comments()
+        {
 
-        public Comment(string commentContent, int commentLikes, Guid commentId)
+        }
+
+        public Comments(string commentContent, int commentLikes, Guid commentId)
         {
             CommentCheck(commentContent, commentLikes);
             CommentContent = commentContent;

@@ -5,7 +5,7 @@
         Task<ICollection<T>> GetAll();
         Task AddNewsRepository(T news);
         Task<T> GetOneNews(Guid NewsId);
-        Task AddCommentsRep(Comment comment, Guid newsId);
+        Task AddCommentsRep(Comments comment, Guid newsId);
         Task DeleteCommentsRep(Guid commentId, Guid newsId);
 
     }
