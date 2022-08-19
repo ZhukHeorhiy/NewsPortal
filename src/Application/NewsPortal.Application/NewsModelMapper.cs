@@ -8,7 +8,7 @@ namespace NewsPortal.Application
         {
             return newsList.Select(news => new NewsModel()
             {
-                Id = news.NewsId,
+                Id = news.NewsID,
                 Author = news.Author,
                 Content = news.Content,
                 Description = news.Description,
@@ -31,11 +31,11 @@ namespace NewsPortal.Application
                 newsModel.PublishedAt,
                 newsModel.Content
                 );
-            foreach(CommentsModel commentsModel in newsModel.Comments)
+            foreach (CommentsModel commentsModel in newsModel.Comments)
             {
                 news.AddComment(new Comments(commentsModel.Content, commentsModel.Likes, commentsModel.CommentId));
             }
-            
+
             return news;
 
         }

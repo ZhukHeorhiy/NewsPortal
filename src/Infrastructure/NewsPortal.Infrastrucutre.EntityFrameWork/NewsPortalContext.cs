@@ -30,13 +30,13 @@ namespace NewsPortal.Infrastrucutre.EntityFrameWork
 
                 entity.HasKey(e => e.CommentId);
             });
-            modelBuilder.Entity<News>(entity =>
-            {
-                entity.Property(e => e.NewsId).HasColumnName("NewsID");
-            });
+            //modelBuilder.Entity<News>(entity =>
+            //{
+            //    entity.Property(e => e.NewsID).HasColumnName("NewsID");
+            //});
 
         }
-   
+
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

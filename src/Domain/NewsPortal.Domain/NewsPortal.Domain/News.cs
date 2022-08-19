@@ -1,6 +1,6 @@
 ﻿namespace NewsPortal.Domain
 {
-    public class News: AgregateRoot
+    public class News : AgregateRoot
     {
         public string Author { get; }
         public string Title { get; }
@@ -13,7 +13,7 @@
 
         public News(Guid id, string author, string title, string description, string url, string imageUrl, DateTime publishedAt, string content)
         {
-            NewsId = id;
+            NewsID = id;
             Author = author;
             Title = title ?? throw new ArgumentNullException(nameof(title));
             Description = description;
@@ -28,7 +28,7 @@
             PublishedAt = publishedAt;
             Url = url;
             Comments = new List<Comments>();
- 
+
         }
         protected News()
         {
@@ -41,9 +41,9 @@
         }
         public void DeleteComment(Guid commentId)
         {
-            
+
             Comments result = Comments.SingleOrDefault(n => n.CommentId == commentId);
-            if(result.CommentLikes < 50)
+            if (result.CommentLikes < 50)
             {
                 Comments.Remove(result);
             }
@@ -51,16 +51,17 @@
             {
                 throw new ApplicationException("canot delete comment to many likes");
             }
-            
+
         }
-       
+
 
         public bool IsImportant()
         {
             if (Title.ToLower().Contains("war") && Title.ToLower().Contains("czech"))
             {
                 return true;
-            }else if (Content.ToLower().Contains("war") && Content.ToLower().Contains("czech"))
+            }
+            else if (Content.ToLower().Contains("war") && Content.ToLower().Contains("czech"))
             {
                 return true;
             }
@@ -76,9 +77,10 @@
 
         public List<Country> WhatCountry()
         {
-            List <Country> results = new List<Country>();
- 
-            if (Content.ToLower().Contains("ukraine") || Title.ToLower().Contains("ukraine")){
+            List<Country> results = new List<Country>();
+
+            if (Content.ToLower().Contains("ukraine") || Title.ToLower().Contains("ukraine"))
+            {
                 results.Add(Country.UKR);
             }
             if (Content.ToLower().Contains("usa") || Title.ToLower().Contains("usa"))

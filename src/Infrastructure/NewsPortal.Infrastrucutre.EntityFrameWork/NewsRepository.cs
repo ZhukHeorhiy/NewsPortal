@@ -21,11 +21,12 @@ namespace NewsPortal.Infrastrucutre.EntityFrameWork
 
         public async Task AddNewsRepository(News news)
         {
-            //_newsPortalContext.Up;
+            _newsPortalContext.News.Add(news);
+            await SubmitChanges();
         }
         public async Task<News> GetOneNews(Guid NewsId)
         {
-            return await _newsPortalContext.News.Where(n => n.NewsId == NewsId).Include(c => c.Comments).SingleOrDefaultAsync();
+            return await _newsPortalContext.News.Where(n => n.NewsID == NewsId).Include(c => c.Comments).SingleOrDefaultAsync();
         }
         public async Task SubmitChanges()
         {
@@ -33,7 +34,7 @@ namespace NewsPortal.Infrastrucutre.EntityFrameWork
         }
         public async Task<News> GetOneNewsNonTracking(Guid NewsId)
         {
-            return await _newsPortalContext.News.AsNoTracking().Where(n => n.NewsId == NewsId).Include(c => c.Comments).SingleOrDefaultAsync();
+            return await _newsPortalContext.News.AsNoTracking().Where(n => n.NewsID == NewsId).Include(c => c.Comments).SingleOrDefaultAsync();
         }
         public async Task<ICollection<News>> GetAllNonTracking()
         {

@@ -27,7 +27,7 @@ namespace NewsPortal.Application
         }
         public async Task AddCommentApl(CommentsModel comments, Guid newsId)
         {
-            
+
             News news = await _newsRepository.GetOneNews(newsId);
             Comments comment = new Comments(comments.Content, comments.Likes, comments.CommentId);
             news.AddComment(comment);
@@ -35,7 +35,7 @@ namespace NewsPortal.Application
 
             if (oldNews.Comments.Count < news.Comments.Count)
             {
-                await _newsRepository.AddCommentsRep(comment, news.NewsId);
+                await _newsRepository.AddCommentsRep(comment, news.NewsID);
             }
         }
         public async Task DeleteCommentApl(Guid commentId, Guid newsId)
@@ -51,7 +51,7 @@ namespace NewsPortal.Application
         }
         public async Task AddNewsAplication(NewsModel news)
         {
-           await _newsRepository.AddNewsRepository(news.ToNews());
+            await _newsRepository.AddNewsRepository(news.ToNews());
         }
 
     }
