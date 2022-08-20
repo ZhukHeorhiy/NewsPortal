@@ -2,14 +2,14 @@
 {
     public class News : AgregateRoot
     {
-        public string Author { get; }
-        public string Title { get; }
-        public string Description { get; }
-        public string Url { get; }
-        public string ImageUrl { get; }
-        public DateTime PublishedAt { get; }
-        public string Content { get; }
-        public List<Comments> Comments { get; }
+        public string Author { get; private set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public string Url { get; private set; }
+        public string ImageUrl { get; private set; }
+        public DateTime PublishedAt { get; private set; }
+        public string Content { get; private set; }
+        public List<Comments> Comments { get; private set; }
 
         public News(Guid id, string author, string title, string description, string url, string imageUrl, DateTime publishedAt, string content)
         {
