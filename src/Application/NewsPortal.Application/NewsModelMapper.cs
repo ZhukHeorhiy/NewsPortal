@@ -33,7 +33,7 @@ namespace NewsPortal.Application
                 );
             foreach (CommentsModel commentsModel in newsModel.Comments)
             {
-                news.AddComment(new Comments(commentsModel.Content, commentsModel.Likes, commentsModel.CommentId));
+                news.AddComment(new Comments(commentsModel.Content, commentsModel.Likes, commentsModel.CommentId, newsModel.Id));
             }
 
             return news;

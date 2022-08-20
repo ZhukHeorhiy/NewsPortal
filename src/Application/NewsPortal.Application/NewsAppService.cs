@@ -29,13 +29,13 @@ namespace NewsPortal.Application
         {
 
             News news = await _newsRepository.GetOneNews(newsId);
-            Comments comment = new Comments(comments.Content, comments.Likes, comments.CommentId);
+            Comments comment = new Comments(comments.Content, comments.Likes, comments.CommentId, newsId);
             news.AddComment(comment);
-            News oldNews = await _newsRepository.GetOneNews(newsId);
+            News oldNews = await _newsRepository.GetOneNewsNonTracking(newsId);
 
             if (oldNews.Comments.Count < news.Comments.Count)
             {
-                await _newsRepository.AddCommentsRep(comment, news.NewsID);
+                await _newsRepository.AddCommentsRep(comment);
             }
         }
         public async Task DeleteCommentApl(Guid commentId, Guid newsId)

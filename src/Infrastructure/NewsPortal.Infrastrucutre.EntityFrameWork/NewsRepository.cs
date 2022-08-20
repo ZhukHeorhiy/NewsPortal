@@ -43,9 +43,10 @@ namespace NewsPortal.Infrastrucutre.EntityFrameWork
             return await query2.AsNoTracking().ToListAsync();
         }
 
-        public Task AddCommentsRep(Comments comment, Guid newsId)
+        public async Task AddCommentsRep(Comments comment)
         {
-            throw new NotImplementedException();
+            _newsPortalContext.Comments.Add(comment);
+            await SubmitChanges();
         }
 
         public Task DeleteCommentsRep(Guid commentId, Guid newsId)

@@ -14,18 +14,19 @@ namespace NewsPortal.Domain
 
         public int CommentLikes { get; private set; }
         
-        public News News { get; set; }
+        public Guid NewsId { get; private set; }
         protected Comments()
         {
 
         }
 
-        public Comments(string commentContent, int commentLikes, Guid commentId)
+        public Comments(string commentContent, int commentLikes, Guid commentId, Guid newsId)
         {
             CommentCheck(commentContent, commentLikes);
             CommentContent = commentContent;
             CommentLikes = commentLikes;
             CommentId = commentId;
+            NewsId = newsId;
         }
 
         private void CommentCheck(string comment, int likes)
