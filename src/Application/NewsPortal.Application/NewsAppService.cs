@@ -38,16 +38,19 @@ namespace NewsPortal.Application
                 await _newsRepository.AddCommentsRep(comment);
             }
         }
+        //works
         public async Task DeleteCommentApl(Guid commentId, Guid newsId)
         {
             News news = await _newsRepository.GetOneNews(newsId);
-            news.DeleteComment(commentId);
+            Comments comment = news.Comments.Where(n => n.CommentId == commentId).FirstOrDefault();
+            news.DeleteComment(comment.CommentId);
             News oldNews = await _newsRepository.GetOneNews(newsId);
 
             if (oldNews.Comments.Count > news.Comments.Count)
             {
-                await _newsRepository.DeleteCommentsRep(commentId, newsId);
+                await _newsRepository.DeleteCommentsRep(comment);
             }
+        //works
         }
         public async Task AddNewsAplication(NewsModel news)
         {

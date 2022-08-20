@@ -7,7 +7,7 @@
         Task<T> GetOneNews(Guid NewsId);
         Task AddCommentsRep(Comments comment);
         Task<News> GetOneNewsNonTracking(Guid NewsId);
-        Task DeleteCommentsRep(Guid commentId, Guid newsId);
+        Task DeleteCommentsRep(Comments comment);
         Task SubmitChanges();
     }
 }

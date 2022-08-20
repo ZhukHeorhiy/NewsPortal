@@ -27,13 +27,12 @@ namespace NewsPortal.Infrastrucutre.EntityFrameWork
 
             modelBuilder.Entity<Comments>(entity =>
             {
-
                 entity.HasKey(e => e.CommentId);
             });
-            //modelBuilder.Entity<News>(entity =>
-            //{
-            //    entity.Property(e => e.NewsID).HasColumnName("NewsID");
-            //});
+            modelBuilder.Entity<News>(entity =>
+            {
+                entity.Property(e => e.NewsID).HasColumnName("NewsID");
+            });
 
         }
 

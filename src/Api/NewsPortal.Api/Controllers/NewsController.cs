@@ -87,7 +87,7 @@ namespace NewsPortal.Api.Controllers
         }
 
         [HttpDelete]
-
+        [Route("comment")]
         public async Task<IActionResult> DeleteComment(Guid commentId, Guid newsId)
         {
             try

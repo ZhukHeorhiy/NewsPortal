@@ -15,6 +15,8 @@ namespace NewsPortal.Domain
         public int CommentLikes { get; private set; }
         
         public Guid NewsId { get; private set; }
+
+        public News News { get; private set; }
         protected Comments()
         {
 

@@ -49,9 +49,10 @@ namespace NewsPortal.Infrastrucutre.EntityFrameWork
             await SubmitChanges();
         }
 
-        public Task DeleteCommentsRep(Guid commentId, Guid newsId)
+        public async Task DeleteCommentsRep(Comments comment)
         {
-            throw new NotImplementedException();
+            _newsPortalContext.Comments.Remove(comment);
+            await SubmitChanges();
         }
 
     }
