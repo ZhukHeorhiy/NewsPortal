@@ -6,7 +6,7 @@ namespace NewsPortal.Application
     {
         public static ICollection<NewsModel> ToNewsModel(this IEnumerable<News> newsList)
         {
-            ICollection<NewsModel> newsM = newsList.Select(news => new NewsModel()
+            return newsList.Select(news => new NewsModel()
             {
                 Id = news.NewsID,
                 Author = news.Author,
@@ -17,18 +17,9 @@ namespace NewsPortal.Application
                 PublishedAt = news.PublishedAt,
                 Title = news.Title,
                 Url = news.Url,
-                //Comments = news.Comments.,
-                
+                Comments = news.Comments.Select(comments => new CommentsModel() { CommentId = comments.CommentId, Content = comments.CommentContent, Likes = comments.CommentLikes}).ToList()
             }).ToList();
-            //foreach (News news in newsList)
-            //{
-            //    foreach (Comments comments in news.Comments)
-            //    {
-            //        news.AddComment(new Comments(comments.CommentContent, comments.CommentLikes, comments.CommentId, comments.NewsId));
-            //    }
-            //}
-            return newsM;
-            
+
         }
         public static News ToNews(this NewsModel newsModel)
         {

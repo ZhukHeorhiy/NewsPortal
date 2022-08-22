@@ -16,7 +16,7 @@ namespace NewsPortal.Domain
         
         public Guid NewsId { get; private set; }
 
-        public News News { get; private set; }
+        public News News { get; set; }
         protected Comments()
         {
 

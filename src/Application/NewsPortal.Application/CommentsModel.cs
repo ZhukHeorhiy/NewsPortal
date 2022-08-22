@@ -12,7 +12,6 @@ namespace NewsPortal.Application
         public string Content { get; set; }
         public int Likes { get; set; }
         public Guid CommentId { get; set; }
-        //public Guid NewsId { get; set; }
 
     }
 
